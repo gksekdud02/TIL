@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+typedef struct student
+{
+	int num;
+	char name[10];
+	int Mat;
+	int Eng;
+	int Kor;
+	double sum;
+	double avg;
+}S;
+
+int main()
+{
+	S s[3];
+	FILE* fp;
+
+	char fname[100];
+
+	printf("성적 파일을 입력하시오:");
+	scanf("%s", fname);
+
+	if ((fp = fopen(fname, "w")) == NULL)
+	{
+		fprintf(stderr, "성적 파일 %s을 열 수 없습니다.\n", fname);
+		exit(1);
+	}
+	fprintf(fp, "학번 이름 수학 영어 국어 합 평균\n");
+
+	for (int i = 0; i < 3; i++)
+	{
+		printf("학번 이름 수학 영어 국어점수를 입력하시오:");
+		printf("\n");
+		scanf(" %d %s %d %d %d", &s[i].num, s[i].name, &s[i].Mat, &s[i].Eng, &s[i].Kor);
+		s[i].sum = s[i].Mat + s[i].Eng + s[i].Kor;
+		s[i].avg = s[i].sum / 3;
+		fprintf(fp, "%d %s %d %d %d %lf %lf\n", s[i].num, s[i].name, s[i].Mat, s[i].Eng, s[i].Kor, s[i].sum, s[i].avg);
+	}
+	fclose(fp);
+
+	return 0;
+}
